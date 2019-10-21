@@ -2,7 +2,7 @@
   <div class="demo">
     <header></header>
     <nav :class=" searchBarFixed === true ? 'isFixed' : '' "></nav>
-    <main>
+    <main :class=" searchBarFixed === true ? 'mainFixed' : '' ">
       <p @click="isshow">点击按钮</p>
       <div class=""></div>
       <div :class="['ishide', canshow ? 'showit' : 'closeit']" @click="aaa">
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     aaa() {
-      console.log('qqq');
+      // console.log('q、qq');
     },
     isshow() {
       this.canshow = !this.canshow;
@@ -71,6 +71,7 @@ export default {
     background-color: aqua;
   }
   p {
+    margin: 0px;
     padding-top: 100px;
     background-color: brown;
   }
@@ -79,6 +80,9 @@ export default {
     height: 1500px;
     background-color: blue;
     position: relative;
+  }
+  .mainFixed {
+    margin-top: 100px;
   }
   footer {
     width: 100%;
