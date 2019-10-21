@@ -5,8 +5,8 @@
     <main :class=" searchBarFixed === true ? 'mainFixed' : '' ">
       <p @click="isshow">点击按钮</p>
       <div class=""></div>
-      <div :class="['ishide', canshow ? 'showit' : 'closeit']" @click="aaa">
-        一大堆话展示
+      <div :class="['ishide', canshow ? 'showit' : 'closeit']" @click="isshow">
+        一大堆话展示，到时候真正做的时候，把它移出屏幕至负数
       </div>
     </main>
     <footer></footer>
@@ -101,12 +101,14 @@ export default {
     width: 100px;
     height: 100px;
     position: absolute;
-    left: 200px;
+    left: 0px;
     top: 200px;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity .5s, left .5s;
+    transition-timing-function: cubic-bezier(.23,1.48,.97,1.2);
   }
   .showit {
+    left: 200px;
     opacity: 1;
   }
   .closeit {
