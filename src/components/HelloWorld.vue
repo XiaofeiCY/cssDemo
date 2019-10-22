@@ -5,9 +5,11 @@
     <main :class=" searchBarFixed === true ? 'mainFixed' : '' ">
       <p @click="isshow">点击按钮</p>
       <div class=""></div>
-      <div :class="['ishide', canshow ? 'showit' : 'closeit']" @click="isshow">
-        一大堆话展示，到时候真正做的时候，把它移出屏幕至负数
+      <div :class="['ishide', canshow ? 'showit' : 'closeit']">
+        <!-- 一大堆话展示，到时候真正做的时候，把它移出屏幕至负数 -->
       </div>
+      <div class="testDrag" @mousedown="dragDiv" @mousemove="toMove"
+       @mouseup="closeDrag" ref="drag"></div>
     </main>
     <footer></footer>
   </div>
@@ -22,6 +24,11 @@ export default {
     return {
       searchBarFixed: false,
       canshow: false,
+      canMove: false,
+      x: 0,
+      y: 0,
+      l: 0,
+      t: 0,
       // headerData: [],
       // footerData: [],
     };
@@ -38,6 +45,33 @@ export default {
     },
     isshow() {
       this.canshow = !this.canshow;
+    },
+    dragDiv(e) {
+      this.canMove = true;
+      // 获取x坐标和y坐标
+      this.x = e.clientX;
+      this.y = e.clientY;
+
+      // 获取左部和顶部的偏移量
+      this.l = this.$refs.drag.offsetLeft;
+      this.t = this.$refs.drag.offsetTop;
+    },
+    toMove(e) {
+      if (this.canMove) {
+        // 获取x和y
+        const nx = e.clientX;
+        const ny = e.clientY;
+        // 计算移动后的左偏移量和顶部的偏移量
+        const nl = nx - (this.x - this.l);
+        const nt = ny - (this.y - this.t);
+
+        this.$refs.drag.style.left = `${nl}px`;
+        this.$refs.drag.style.top = `${nt}px`;
+      }
+    },
+    closeDrag() {
+      this.canMove = false;
+      // this.$refs.drag[0].unbind('mousemove', this.dragDiv);
     },
     handleScroll() {
       this.$nextTick(() => {
@@ -110,6 +144,14 @@ export default {
   .showit {
     left: 200px;
     opacity: 1;
+  }
+  .testDrag {
+    width: 170px;
+    height: 170px;
+    background-color: rgb(42, 165, 58);
+    top: 700px;
+    left: 75px;
+    position: absolute;
   }
   .closeit {
     /* display: none; */
