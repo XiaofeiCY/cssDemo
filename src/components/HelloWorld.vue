@@ -153,10 +153,10 @@ export default {
     left: 75px;
     position: absolute;
   }
-  .closeit {
-    /* display: none; */
-    /* animation: myanimation .5s; */
-  }
+  /* .closeit {
+    display: none;
+    animation: myanimation .5s;
+  } */
   /* @keyframes myanimation {
     from {
       display: block;
